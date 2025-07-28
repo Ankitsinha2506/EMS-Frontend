@@ -7,19 +7,24 @@ import React from "react";
 export const columns = (onDepartmentDelete) => [
     {
         name: "S No",
-        selector: (row) => row.sno
+        selector: (row) => row.sno,
+        // width:"100px"
     },
     {
         name: "Department Name",
         selector: (row) => row.dep_name,
-        sortable: true
+        sortable: true,
+        width:""
+        
     },
     {
         name: "Action",
         cell: (row) => <DepartmentButtons _id={row._id} onDepartmentDelete={onDepartmentDelete} />,
         ignoreRowClick: true,
         allowOverflow: true,
-        button: true
+        button: true,
+        width:"120px"
+
     }
 ];
 
@@ -47,13 +52,13 @@ export const DepartmentButtons = ({ _id, onDepartmentDelete }) => {
     return (
         <div className="flex items-center justify-center gap-1 w-full flex-nowrap mr-2">
             <button
-                className="px-2 py-1 w-[80px] bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium transition"
+                className="px-2 py-1 w-[75px] bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium transition"
                 onClick={() => navigate(`/admin-dashboard/department/${_id}`)}
             >
                 Edit
             </button>
             <button
-                className="px-2 py-1 w-[100px]  bg-red-600 hover:bg-red-700 text-white rounded text-xs font-medium transition"
+                className="px-2 py-1 w-[75px]  bg-red-600 hover:bg-red-700 text-white rounded text-xs font-medium transition"
                 onClick={() => handleDelete(_id)}
             >
                 Delete

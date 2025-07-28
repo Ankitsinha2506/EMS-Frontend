@@ -4,7 +4,7 @@ import { FaBuilding, FaCalendarAlt, FaCogs, FaMoneyBillWave, FaTachometerAlt, Fa
 
 const menuItems = [
     { to: "/admin-dashboard", icon: <FaTachometerAlt />, label: "Dashboard" },
-    { to: "/admin-employees", icon: <FaUsers />, label: "Employee" },
+    { to: "/admin-dashboard/employees", icon: <FaUsers />, label: "Employee" },
     { to: "/admin-dashboard/departments", icon: <FaBuilding />, label: "Department" },
     { to: "/admin-leaves", icon: <FaCalendarAlt />, label: "Leave" },
     { to: "/admin-salaries", icon: <FaMoneyBillWave />, label: "Salary" },

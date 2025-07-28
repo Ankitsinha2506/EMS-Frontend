@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import DataTable from 'react-data-table-component';
-import { columns } from '../../utils/DepartmentHelper';
+  import DataTable from 'react-data-table-component';
+import { columns, DepartmentButtons } from '../../utils/DepartmentHelper';
 import axios from 'axios';
 
 const DepartmentList = () => {
@@ -30,7 +30,8 @@ const DepartmentList = () => {
           const data = response.data.departments.map(dep => ({
             _id: dep._id,
             sno: sno++,
-            dep_name: dep.dep_name
+            dep_name: dep.dep_name,
+            // action: (<DepartmentButtons Id={dep._id} onDepartmentDelete={onDepartmentDelete} />)
           }));
           setDepartment(data);
           setFilteredDepartments(data); // ✅ Initialize filtered data
