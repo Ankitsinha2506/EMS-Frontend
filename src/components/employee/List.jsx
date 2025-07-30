@@ -7,6 +7,7 @@ import axios from 'axios';
 const List = () => {
     const [employees, setEmployees] = useState([]);
     const [employeeLoading, setEmployeeLoading] = useState(false);
+    const [filteredEmployees, setFilteredEmployees] = useState([])
 
     useEffect(() => {
         const fetchEmployees = async () => {
@@ -33,6 +34,7 @@ const List = () => {
                         action: (<EmployeeButtons _id={emp._id} />)
                     }));
                     setEmployees(data);
+                    setFilteredEmployees(data);
                 } else {
                     setEmployees([]); // fallback
                 }
@@ -47,6 +49,14 @@ const List = () => {
         fetchEmployees();
     }, []);
 
+    const handleFilter = (e) => {
+        const records = employees.filter((emp) => (
+            emp.name.toLowerCase().includes(e.target.value.toLowerCase())
+        ))
+
+        setFilteredEmployees(records)
+    }
+
     return (
         <div className='p-6'>
             <div className="text-center mb-6">
@@ -57,6 +67,7 @@ const List = () => {
                 <input
                     type="text"
                     placeholder="Search Department"
+                    onChange={handleFilter}
                     className="px-4 py-2 border rounded w-full md:w-1/2"
                 />
                 <Link
@@ -67,10 +78,11 @@ const List = () => {
                 </Link>
             </div>
 
-            <div>
+            <div className='mt-6'>
                 <DataTable
                     columns={columns}
-                    data={employees}
+                    data={filteredEmployees}
+                    pagination
                 />
             </div>
         </div>

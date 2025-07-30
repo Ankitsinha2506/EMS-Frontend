@@ -12,7 +12,7 @@ export const columns = [
         name: "Name",
         selector: row => row.name,
         sortable: true,
-        width: "150px"
+        width: "100px"
     },
     {
         name: "Image",
@@ -24,28 +24,31 @@ export const columns = [
                 className="w-10 h-10 rounded-full object-cover"
             />
         ),
-        width: "100px"
+        width: "90px"
     },
     {
         name: "Department",
-        selector: row => row.dep_name,  
+        selector: row => row.dep_name,
+        width: "160px"
     },
     {
         name: "DOB",
         selector: row => row.dob,
-        sortable: true
+        sortable: true,
+        width: "130px"
     },
     {
         name: "Action",
         cell: row => <EmployeeButtons _id={row._id} />,
-        center: true
+        center: true,
+
     }
 ];
 
 
 
 
-export const fetchDepartments = async () => {
+export const fetchDepartments = async (id) => {
     let departments
     try {
         const response = await axios.get("http://localhost:5000/api/departments", {
@@ -67,6 +70,30 @@ export const fetchDepartments = async () => {
     return departments;
 };
 
+// Employee for salary form.
+export const getEnployees = async () => {
+    let empoyees
+    try {
+        const response = await axios.get(`http://localhost:5000/api/employee/department/${id}`, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            }
+        });
+
+        if (response.data.success) {
+            empoyees = response.data.departments
+
+        }
+
+    } catch (error) {
+        if (error.response && !error.response.data.success) {
+            alert(error.response.data.error);
+        }
+    }
+    return empoyees;
+};
+
+
 export const EmployeeButtons = ({ _id, }) => {
     const navigate = useNavigate();
 
@@ -82,6 +109,7 @@ export const EmployeeButtons = ({ _id, }) => {
             </button>
             <button
                 className="px-2 py-1 w-[100px]  bg-blue-600 hover:bg-red-700 text-white rounded text-xs font-medium transition"
+                onClick={() => navigate(`/admin-dashboard/employees/edit/${_id}`)}
             >
                 Edit
             </button>
